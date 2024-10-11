@@ -1,5 +1,8 @@
 
+using CQRS;
 using CQRS.Data.context;
+using CQRS.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CQRS_MediatoR
@@ -19,6 +22,10 @@ namespace CQRS_MediatoR
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
                 ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+            builder.Services.AddScoped<ItemRepository,ItemRepository>();
+
+            builder.Services.AddMediatR(typeof(CqrsLibrary).Assembly);
 
             var app = builder.Build();
 
