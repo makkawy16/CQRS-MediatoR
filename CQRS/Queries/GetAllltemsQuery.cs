@@ -1,5 +1,6 @@
 ﻿using CQRS.Data.context;
 using CQRS.Data.Models;
+using CQRS.Repositories;
 using MediatR;
 
 namespace CQRS.Queries
@@ -10,16 +11,16 @@ namespace CQRS.Queries
 
     public class GetAllltemsQueryHandler : IRequestHandler<GetAllltemsQuery, List<Item>>
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IItemRepository _ItemRepo;
 
-        public GetAllltemsQueryHandler(AppDbContext dbContext)
+        public GetAllltemsQueryHandler(IItemRepository itemRepo)
         {
-            _dbContext = dbContext;
+            _ItemRepo = itemRepo;
         }
 
         public  async Task<List<Item>> Handle(GetAllltemsQuery request, CancellationToken cancellationToken)
         {
-            var result = _dbContext.Items.ToList();
+            var result = _ItemRepo.GetAllItems();
 
             if (result.Any())
                 return result;

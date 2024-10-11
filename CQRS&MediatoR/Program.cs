@@ -23,7 +23,7 @@ namespace CQRS_MediatoR
             builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
                 ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
-            builder.Services.AddScoped<ItemRepository,ItemRepository>();
+            builder.Services.AddScoped<IItemRepository,ItemRepository>();
 
             builder.Services.AddMediatR(typeof(CqrsLibrary).Assembly);
 
