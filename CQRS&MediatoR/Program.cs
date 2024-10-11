@@ -1,4 +1,7 @@
 
+using CQRS.Data.context;
+using Microsoft.EntityFrameworkCore;
+
 namespace CQRS_MediatoR
 {
     public class Program
@@ -13,6 +16,9 @@ namespace CQRS_MediatoR
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
+                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
             var app = builder.Build();
 
